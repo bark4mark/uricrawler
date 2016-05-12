@@ -1,4 +1,4 @@
-package co.markhoward.uricrawler;
+package co.markhoward.uricrawler.downloader;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import co.markhoward.uricrawler.Crawl;
+import co.markhoward.uricrawler.downloader.JsoupDownloader;
 
-public class UriDownloaderTest {
+
+public class JsoupDownloaderTest {
 	@Rule
 	public TemporaryFolder tempDirectory = new TemporaryFolder();
 	@Test
@@ -19,7 +22,7 @@ public class UriDownloaderTest {
 		File temp = tempDirectory.newFolder();
 		try(Crawl crawl = new Crawl(temp)){
 			String uri = "http://bark4mark.blogspot.ie/2015/11/getting-going-with-go.html";
-			UriDownloader uriDownloader = new UriDownloader(crawl, uri);
+			JsoupDownloader uriDownloader = new JsoupDownloader(crawl, uri);
 			Optional<Document> document = uriDownloader.download();
 			Assert.assertTrue(document.isPresent());
 		} catch (Exception exception) {

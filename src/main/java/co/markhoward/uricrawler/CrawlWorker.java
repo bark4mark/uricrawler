@@ -1,10 +1,13 @@
 package co.markhoward.uricrawler;
 
+import java.lang.reflect.Constructor;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.jsoup.nodes.Document;
+
+import co.markhoward.uricrawler.downloader.UriDownloader;
 
 import com.google.common.collect.Sets;
 
@@ -19,7 +22,9 @@ public class CrawlWorker implements Callable<Set<String>>{
 
 	@Override
 	public Set<String> call() throws Exception {
-		UriDownloader uriDownloader = new UriDownloader(this.crawl, uri);
+		Class<?> uriDownloaderClass = crawl.getUriDownloader();
+		Constructor<?> constructor = uriDownloaderClass.getConstructor(Crawl.class, String.class);
+		UriDownloader uriDownloader = (UriDownloader) constructor.newInstance(this.crawl, this.uri);
 		Optional<Document> downloaded = uriDownloader.download();
 		if(!downloaded.isPresent())
 			return Sets.newHashSet();

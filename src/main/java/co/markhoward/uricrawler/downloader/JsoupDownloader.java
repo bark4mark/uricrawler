@@ -1,4 +1,4 @@
-package co.markhoward.uricrawler;
+package co.markhoward.uricrawler.downloader;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -10,11 +10,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 
-public class UriDownloader {
+import co.markhoward.uricrawler.Crawl;
+
+public class JsoupDownloader implements UriDownloader{
 	private final Crawl crawl;
 	private final String uri;
 
-	public UriDownloader(Crawl crawl, String uri) {
+	public JsoupDownloader(Crawl crawl, String uri) {
 		this.crawl = crawl;
 		this.uri = uri;
 	}
@@ -46,5 +48,5 @@ public class UriDownloader {
 	
 	private final static String HTML = "html";
 	private final static String CONTENT_TYPE_ERROR = "Content type not set for Html";
-	private final Logger logger = LogManager.getLogger(UriDownloader.class);
+	private final Logger logger = LogManager.getLogger(JsoupDownloader.class);
 }

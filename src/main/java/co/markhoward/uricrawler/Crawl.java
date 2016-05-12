@@ -10,6 +10,7 @@ import org.mapdb.DBMaker;
 import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 
+import co.markhoward.uricrawler.downloader.JsoupDownloader;
 import co.markhoward.uricrawler.events.DocumentListener;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class Crawl implements AutoCloseable{
 	private int maxDepth = Integer.MAX_VALUE;
 	private final DB db;
 	private int maxCrawled = Integer.MAX_VALUE;
+	private Class<?> UriDownloader = JsoupDownloader.class;
 	
 	private static final String DEFAULT_NAME = "Crawl";
 	
